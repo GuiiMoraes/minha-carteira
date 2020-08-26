@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, Content } from './styles';
 
-const Auth: React.FC = ({ children }) => <Container>{children}</Container>;
+const Auth: React.FC = ({ children }) => (
+  <Container>
+    <Content>{children}</Content>
+  </Container>
+);
 
 export default Auth;
