@@ -14,5 +14,6 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   grid-area: Content;
-  background-color: #1b1f38;
+  color: ${props => props.theme.colors.white};
+  background-color: ${props => props.theme.colors.primary};
 `;

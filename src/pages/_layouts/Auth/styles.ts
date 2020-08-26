@@ -21,5 +21,6 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
 
+  color: #111;
   background-color: #fff;
 `;
