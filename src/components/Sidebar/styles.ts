@@ -33,12 +33,22 @@ export const MenuWrapper = styled.nav`
   flex-direction: column;
 
   a {
+    text-decoration: none;
+  }
+
+  button {
+    border: none;
+    background-color: inherit;
+  }
+
+  a,
+  button {
     display: flex;
     align-items: center;
 
     width: fit-content;
+    font-size: 16px;
 
-    text-decoration: none;
     color: ${props => props.theme.colors.info};
 
     border-bottom: 1px solid transparent;
