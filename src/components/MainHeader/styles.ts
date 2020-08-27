@@ -20,3 +20,9 @@ export const Profile = styled.div`
 
   color: ${props => props.theme.colors.white};
 `;
+
+export const SwitcherWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
