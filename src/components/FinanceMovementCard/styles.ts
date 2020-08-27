@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 interface IContainerProps {
-  cardColor: string;
   tagColor: string;
 }
 
@@ -20,7 +19,7 @@ export const Container = styled.li<IContainerProps>`
 
   transition: all 0.2s;
 
-  background-color: ${props => props.cardColor};
+  background-color: ${props => props.theme.colors.tertiary};
 
   :not(:first-of-type) {
     margin-top: 8px;

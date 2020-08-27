@@ -18,21 +18,6 @@ const Income: React.FC = () => {
 
       <ContentList>
         <FinanceMovementCard
-          cardColor="#313862"
-          tagColor="#e44c4e"
-          title="Titulo"
-          subTitle="SubTitulo"
-          amount="127"
-        />
-        <FinanceMovementCard
-          cardColor="#313862"
-          tagColor="#e44c4e"
-          title="Titulo"
-          subTitle="SubTitulo"
-          amount="127"
-        />
-        <FinanceMovementCard
-          cardColor="#313862"
           tagColor="#e44c4e"
           title="Titulo"
           subTitle="SubTitulo"
