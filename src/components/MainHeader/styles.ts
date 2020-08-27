@@ -9,6 +9,8 @@ export const Container = styled.header`
   align-items: center;
   justify-content: space-between;
 
+  height: 70px;
+
   padding: 0 8px;
 
   border-bottom: 1px solid ${props => props.theme.colors.gray};
