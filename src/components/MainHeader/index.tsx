@@ -2,10 +2,13 @@ import React, { useCallback } from 'react';
 
 import { randomEmoji } from 'utils';
 
+import { useAuth } from 'context/auth';
+
 import Switcher from 'components/Switcher';
 import { Container, SwitcherWrapper, Profile } from './styles';
 
 const MainHeader: React.FC = () => {
+  const { user } = useAuth();
   const emoji = randomEmoji();
 
   const handleToogleTheme = useCallback(() => {
@@ -26,7 +29,7 @@ const MainHeader: React.FC = () => {
 
       <Profile>
         <strong>Hello, {emoji}</strong>
-        <p>Guilherme Moraes</p>
+        <p>{user?.name}</p>
       </Profile>
     </Container>
   );

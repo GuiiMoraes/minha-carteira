@@ -5,6 +5,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 
+import { useAuth } from 'context/auth';
+
 import AuthLayout from 'pages/_layouts/Auth';
 import DefaultLayout from 'pages/_layouts/Default';
 
@@ -18,7 +20,9 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const user = true;
+  const { user } = useAuth();
+
+  const hasUser = Object.keys(user).length;
 
   const Layout = isPrivate ? DefaultLayout : AuthLayout;
 
@@ -26,7 +30,7 @@ const Route: React.FC<RouteProps> = ({
     <ReactDOMRoute
       {...rest}
       render={({ location }) => {
-        return isPrivate === !!user ? (
+        return isPrivate === !!hasUser ? (
           <Layout>
             <Component />
           </Layout>
