@@ -1,18 +1,45 @@
 import React from 'react';
 
 import ContentHeader from 'components/ContentHeader';
+import FinanceMovementCard from 'components/FinanceMovementCard';
 import SelectInput from 'components/SelectInput';
 
 import { monthsOptions, yearsOptions } from 'utils';
 
-// import { Container } from './styles';
+import { Container, ContentList } from './styles';
 
 const Income: React.FC = () => {
   return (
-    <ContentHeader title="Income" lineColor="#ccc">
-      <SelectInput options={monthsOptions} />
-      <SelectInput options={yearsOptions} />
-    </ContentHeader>
+    <Container>
+      <ContentHeader title="Income" lineColor="#ccc">
+        <SelectInput options={monthsOptions} />
+        <SelectInput options={yearsOptions} />
+      </ContentHeader>
+
+      <ContentList>
+        <FinanceMovementCard
+          cardColor="#313862"
+          tagColor="#e44c4e"
+          title="Titulo"
+          subTitle="SubTitulo"
+          amount="127"
+        />
+        <FinanceMovementCard
+          cardColor="#313862"
+          tagColor="#e44c4e"
+          title="Titulo"
+          subTitle="SubTitulo"
+          amount="127"
+        />
+        <FinanceMovementCard
+          cardColor="#313862"
+          tagColor="#e44c4e"
+          title="Titulo"
+          subTitle="SubTitulo"
+          amount="127"
+        />
+      </ContentList>
+    </Container>
   );
 };
 
