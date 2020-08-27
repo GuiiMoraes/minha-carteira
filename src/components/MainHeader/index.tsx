@@ -25,7 +25,7 @@ const MainHeader: React.FC = () => {
       </SwitcherWrapper>
 
       <Profile>
-        <strong>Olá, {emoji}</strong>
+        <strong>Hello, {emoji}</strong>
         <p>Guilherme Moraes</p>
       </Profile>
     </Container>
