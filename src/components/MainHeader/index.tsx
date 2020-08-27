@@ -1,11 +1,22 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { randomEmoji } from 'utils';
 
-const MainHeader: React.FC = () => (
-  <Container>
-    <h1>MainHeader</h1>
-  </Container>
-);
+import { Container, Profile } from './styles';
+
+const MainHeader: React.FC = () => {
+  const emoji = randomEmoji();
+
+  return (
+    <Container>
+      <h1>MainHeader</h1>
+
+      <Profile>
+        <strong>Olá, {emoji}</strong>
+        <p>Guilherme Moraes</p>
+      </Profile>
+    </Container>
+  );
+};
 
 export default MainHeader;
