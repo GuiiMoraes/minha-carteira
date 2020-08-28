@@ -1,7 +1,7 @@
 export default [
   {
-    value: 7,
-    label: 'Agosto',
+    value: 1,
+    label: 'Janeiro',
   },
   {
     value: 8,

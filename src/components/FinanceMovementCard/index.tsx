@@ -1,31 +1,31 @@
 import React from 'react';
 
-import { formatNumber } from 'utils';
+import { formatCurrency } from 'utils';
 
 import { Container } from './styles';
 
 interface IFinanceMovementCardProps {
-  tagColor: string;
+  tagClass: string;
   title: string;
   subTitle: string;
   amount: string;
 }
 
 const FinanceMovementCard: React.FC<IFinanceMovementCardProps> = ({
-  tagColor,
+  tagClass,
   title,
   subTitle,
   amount,
 }) => {
   return (
     <Container>
-      <span className={tagColor} />
+      <span className={tagClass} />
       <div>
         <p>{title}</p>
         <small>{subTitle}</small>
       </div>
 
-      <strong>{formatNumber(Number(amount))}</strong>
+      <strong>{formatCurrency(Number(amount))}</strong>
     </Container>
   );
 };
