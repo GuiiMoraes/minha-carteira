@@ -36,12 +36,20 @@ export const Container = styled.li`
 
     margin-right: 16px;
 
-    &.recurrent {
-      background-color: ${props => props.theme.colors.warning};
+    &.income-recurrent {
+      background-color: ${props => props.theme.colors.success};
     }
 
-    &.eventual {
+    &.income-eventual {
       background-color: ${props => props.theme.colors.info};
+    }
+
+    &.outcome-recurrent {
+      background-color: ${props => props.theme.colors.info};
+    }
+
+    &.outcome-eventual {
+      background-color: ${props => props.theme.colors.warning};
     }
   }
 
