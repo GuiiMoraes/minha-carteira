@@ -18,8 +18,8 @@ const FinanceMovementCard: React.FC<IFinanceMovementCardProps> = ({
   amount,
 }) => {
   return (
-    <Container tagColor={tagColor}>
-      <span />
+    <Container>
+      <span className={tagColor} />
       <div>
         <p>{title}</p>
         <small>{subTitle}</small>

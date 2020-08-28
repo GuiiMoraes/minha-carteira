@@ -1,10 +1,11 @@
 import React from 'react';
+import { parseISO, format } from 'date-fns';
 
 import ContentHeader from 'components/ContentHeader';
 import FinanceMovementCard from 'components/FinanceMovementCard';
 import SelectInput from 'components/SelectInput';
 
-import { monthsOptions, yearsOptions } from 'utils';
+import { expenses, monthsOptions, yearsOptions } from 'repositories';
 
 import { Container, Filters, ContentList } from './styles';
 
@@ -26,12 +27,17 @@ const Outcome: React.FC = () => {
       </Filters>
 
       <ContentList>
-        <FinanceMovementCard
-          tagColor="#e44c4e"
-          title="Titulo"
-          subTitle="SubTitulo"
-          amount="127"
-        />
+        {expenses.map(outcome => (
+          <FinanceMovementCard
+            key={`outcome_${expenses.indexOf(outcome)}`}
+            tagColor={
+              outcome.frequency === 'recorrente' ? 'recurrent' : 'eventual'
+            }
+            title={outcome.description}
+            subTitle={format(parseISO(outcome.date), 'dd/MM/yyyy')}
+            amount={outcome.amount}
+          />
+        ))}
       </ContentList>
     </Container>
   );
