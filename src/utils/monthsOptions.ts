@@ -1,14 +1,14 @@
 export default [
   {
-    value: 'agosto',
+    value: 7,
     label: 'Agosto',
   },
   {
-    value: 'setembro',
+    value: 8,
     label: 'Setembro',
   },
   {
-    value: 'outubro',
+    value: 9,
     label: 'Outubro',
   },
 ];

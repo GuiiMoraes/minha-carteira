@@ -9,6 +9,10 @@ export const Container = styled.div<IContainerProps>`
   align-items: center;
   justify-content: space-between;
 
+  height: 60px;
+
+  margin-bottom: 8px;
+
   > h1 {
     color: ${props => props.theme.colors.white};
     position: relative;
