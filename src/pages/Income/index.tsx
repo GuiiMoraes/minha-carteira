@@ -21,6 +21,10 @@ const Income: React.FC = () => {
   const [gainsData, setGainsData] = useState<IGainData[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
+  const [selectedFrequencies, setSelectedFrequencies] = useState([
+    'recurrent',
+    'eventual',
+  ]);
 
   const yearsOptions = useMemo(() => {
     const uniqueYears: number[] = [];
@@ -50,7 +54,8 @@ const Income: React.FC = () => {
   useEffect(() => {
     const parsedData = gains.map(gain => ({
       identifier: `income_${gains.indexOf(gain)}`,
-      frequency: gain.frequency === 'recorrente' ? 'recurrent' : 'eventual',
+      frequency:
+        gain.frequency === 'recurrent' ? 'income-recurrent' : 'income-eventual',
       description: gain.description,
       date: format(parseISO(gain.date), 'dd/MM/yyyy'),
       amount: gain.amount,
@@ -60,10 +65,10 @@ const Income: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    let filteredDates = gains;
+    let filteredDatas = gains;
 
     if (selectedMonth && selectedYear) {
-      filteredDates = gains.filter(gain => {
+      filteredDatas = gains.filter(gain => {
         const date = new Date(gain.date);
 
         const month = String(date.getMonth() + 1);
@@ -73,16 +78,20 @@ const Income: React.FC = () => {
       });
     }
 
-    const parsedData = filteredDates.map(gain => ({
+    filteredDatas = filteredDatas.filter(gain => {
+      return selectedFrequencies.includes(gain.frequency);
+    });
+
+    const parsedData = filteredDatas.map(gain => ({
       identifier: `income_${gains.indexOf(gain)}`,
-      frequency: gain.frequency === 'recorrente' ? 'recurrent' : 'eventual',
+      frequency: `income-${gain.frequency}`,
       description: gain.description,
       date: format(parseISO(gain.date), 'dd/MM/yyyy'),
       amount: gain.amount,
     }));
 
     setGainsData(parsedData);
-  }, [selectedMonth, selectedYear]);
+  }, [selectedMonth, selectedYear, selectedFrequencies]);
 
   const handleSelectMonth = useCallback(event => {
     setSelectedMonth(event.target.value);
@@ -95,11 +104,29 @@ const Income: React.FC = () => {
   const handleClearFilters = useCallback(() => {
     setSelectedMonth(null);
     setSelectedYear(null);
+    setSelectedFrequencies(['recurrent', 'eventual']);
   }, []);
+
+  const handleFrequencyClick = useCallback(
+    (frequency: string): void => {
+      const alreadySelected = selectedFrequencies.findIndex(
+        selectedFrequency => selectedFrequency === frequency
+      );
+
+      if (alreadySelected >= 0) {
+        setSelectedFrequencies(prevState =>
+          prevState.filter(item => item !== frequency)
+        );
+      } else {
+        setSelectedFrequencies(prevState => [...prevState, frequency]);
+      }
+    },
+    [selectedFrequencies]
+  );
 
   return (
     <Container>
-      <ContentHeader title="Income" lineColor="#f7931b">
+      <ContentHeader title="Income" lineColor="#03bb85">
         <SelectInput
           selectName="Months"
           options={monthsOptions}
@@ -122,11 +149,23 @@ const Income: React.FC = () => {
       </ContentHeader>
 
       <Filters>
-        <button type="button" className="recurrent">
-          Recorrentes
+        <button
+          type="button"
+          className={`income-recurrent ${
+            selectedFrequencies.includes('recurrent') && 'frequencyActive'
+          }`}
+          onClick={() => handleFrequencyClick('recurrent')}
+        >
+          Recurrent
         </button>
-        <button type="button" className="eventual">
-          Eventuais
+        <button
+          type="button"
+          className={`income-eventual ${
+            selectedFrequencies.includes('eventual') && 'frequencyActive'
+          }`}
+          onClick={() => handleFrequencyClick('eventual')}
+        >
+          Eventual
         </button>
       </Filters>
 

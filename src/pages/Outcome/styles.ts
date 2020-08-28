@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
   .clear-filters {
     padding: 8px 16px;
+
+    border: none;
     border-radius: 8px;
 
     margin-left: 16px;
@@ -25,10 +27,12 @@ export const Filters = styled.div`
 
     margin: 0 8px;
 
+    opacity: 0.4;
+
     transition: opacity 0.2s;
 
     :hover {
-      opacity: 0.7;
+      opacity: 0.6;
     }
 
     :after {
@@ -46,12 +50,16 @@ export const Filters = styled.div`
       transform: translateY(8px);
     }
 
-    &.recurrent:after {
+    &.outcome-recurrent:after {
+      border-bottom-color: ${props => props.theme.colors.info};
+    }
+
+    &.outcome-eventual:after {
       border-bottom-color: ${props => props.theme.colors.warning};
     }
 
-    &.eventual:after {
-      border-bottom-color: ${props => props.theme.colors.info};
+    &.frequencyActive {
+      opacity: 1;
     }
   }
 `;

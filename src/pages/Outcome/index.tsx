@@ -21,6 +21,10 @@ const Outcome: React.FC = () => {
   const [expensesData, setExpensesData] = useState<IExpenseData[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
+  const [selectedFrequencies, setSelectedFrequencies] = useState([
+    'recurrent',
+    'eventual',
+  ]);
 
   const yearsOptions = useMemo(() => {
     const uniqueYears: number[] = [];
@@ -50,7 +54,10 @@ const Outcome: React.FC = () => {
   useEffect(() => {
     const parsedData = expenses.map(expense => ({
       identifier: `outcome_${expenses.indexOf(expense)}`,
-      frequency: expense.frequency === 'recorrente' ? 'recurrent' : 'eventual',
+      frequency:
+        expense.frequency === 'recurrent'
+          ? 'outcome-recurrent'
+          : 'outcome-eventual',
       description: expense.description,
       date: format(parseISO(expense.date), 'dd/MM/yyyy'),
       amount: expense.amount,
@@ -60,10 +67,10 @@ const Outcome: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    let filteredDates = expenses;
+    let filteredDatas = expenses;
 
     if (selectedMonth && selectedYear) {
-      filteredDates = expenses.filter(expense => {
+      filteredDatas = expenses.filter(expense => {
         const date = new Date(expense.date);
 
         const month = String(date.getMonth() + 1);
@@ -73,16 +80,23 @@ const Outcome: React.FC = () => {
       });
     }
 
-    const parsedData = filteredDates.map(expense => ({
+    filteredDatas = filteredDatas.filter(gain => {
+      return selectedFrequencies.includes(gain.frequency);
+    });
+
+    const parsedData = filteredDatas.map(expense => ({
       identifier: `outcome_${expenses.indexOf(expense)}`,
-      frequency: expense.frequency === 'recorrente' ? 'recurrent' : 'eventual',
+      frequency:
+        expense.frequency === 'recurrent'
+          ? 'outcome-recurrent'
+          : 'outcome-eventual',
       description: expense.description,
       date: format(parseISO(expense.date), 'dd/MM/yyyy'),
       amount: expense.amount,
     }));
 
     setExpensesData(parsedData);
-  }, [selectedMonth, selectedYear]);
+  }, [selectedMonth, selectedYear, selectedFrequencies]);
 
   const handleSelectMonth = useCallback(event => {
     setSelectedMonth(event.target.value);
@@ -95,11 +109,29 @@ const Outcome: React.FC = () => {
   const handleClearFilters = useCallback(() => {
     setSelectedMonth(null);
     setSelectedYear(null);
+    setSelectedFrequencies(['recurrent', 'eventual']);
   }, []);
+
+  const handleFrequencyClick = useCallback(
+    (frequency: string): void => {
+      const alreadySelected = selectedFrequencies.findIndex(
+        selectedFrequency => selectedFrequency === frequency
+      );
+
+      if (alreadySelected >= 0) {
+        setSelectedFrequencies(prevState =>
+          prevState.filter(item => item !== frequency)
+        );
+      } else {
+        setSelectedFrequencies(prevState => [...prevState, frequency]);
+      }
+    },
+    [selectedFrequencies]
+  );
 
   return (
     <Container>
-      <ContentHeader title="Outcome" lineColor="#f7931b">
+      <ContentHeader title="Outcome" lineColor="#e44c4e">
         <SelectInput
           selectName="Months"
           options={monthsOptions}
@@ -122,11 +154,23 @@ const Outcome: React.FC = () => {
       </ContentHeader>
 
       <Filters>
-        <button type="button" className="recurrent">
-          Recorrentes
+        <button
+          type="button"
+          className={`outcome-recurrent ${
+            selectedFrequencies.includes('recurrent') && 'frequencyActive'
+          }`}
+          onClick={() => handleFrequencyClick('recurrent')}
+        >
+          Recurrent
         </button>
-        <button type="button" className="eventual">
-          Eventuais
+        <button
+          type="button"
+          className={`outcome-eventual ${
+            selectedFrequencies.includes('eventual') && 'frequencyActive'
+          }`}
+          onClick={() => handleFrequencyClick('eventual')}
+        >
+          Eventual
         </button>
       </Filters>
 
