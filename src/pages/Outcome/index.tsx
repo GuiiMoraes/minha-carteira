@@ -11,7 +11,7 @@ import { Container, Filters, ContentList } from './styles';
 const Outcome: React.FC = () => {
   return (
     <Container>
-      <ContentHeader title="Outcome" lineColor="#ccc">
+      <ContentHeader title="Outcome" lineColor="#e44c4e">
         <SelectInput options={monthsOptions} />
         <SelectInput options={yearsOptions} />
       </ContentHeader>
