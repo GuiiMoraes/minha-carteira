@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { parseISO, format } from 'date-fns';
 
 import ContentHeader from 'components/ContentHeader';
@@ -9,12 +9,91 @@ import { expenses, monthsOptions, yearsOptions } from 'repositories';
 
 import { Container, Filters, ContentList } from './styles';
 
+interface IExpenseData {
+  identifier: string;
+  frequency: string;
+  description: string;
+  date: string;
+  amount: string;
+}
+
 const Outcome: React.FC = () => {
+  const [expensesData, setExpensesData] = useState<IExpenseData[]>([]);
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  const [selectedYear, setSelectedYear] = useState<string | null>(null);
+
+  useEffect(() => {
+    const parsedData = expenses.map(expense => ({
+      identifier: `outcome_${expenses.indexOf(expense)}`,
+      frequency: expense.frequency === 'recorrente' ? 'recurrent' : 'eventual',
+      description: expense.description,
+      date: format(parseISO(expense.date), 'dd/MM/yyyy'),
+      amount: expense.amount,
+    }));
+
+    setExpensesData(parsedData);
+  }, []);
+
+  useEffect(() => {
+    let filteredDates = expenses;
+
+    if (selectedMonth && selectedYear) {
+      filteredDates = expenses.filter(expense => {
+        const date = new Date(expense.date);
+
+        const month = String(date.getMonth() + 1);
+        const year = String(date.getFullYear());
+
+        return month === selectedMonth && year === selectedYear;
+      });
+    }
+
+    const parsedData = filteredDates.map(expense => ({
+      identifier: `outcome_${expenses.indexOf(expense)}`,
+      frequency: expense.frequency === 'recorrente' ? 'recurrent' : 'eventual',
+      description: expense.description,
+      date: format(parseISO(expense.date), 'dd/MM/yyyy'),
+      amount: expense.amount,
+    }));
+
+    setExpensesData(parsedData);
+  }, [selectedMonth, selectedYear]);
+
+  const handleSelectMonth = useCallback(event => {
+    setSelectedMonth(event.target.value);
+  }, []);
+
+  const handleSelectYear = useCallback(event => {
+    setSelectedYear(event.target.value);
+  }, []);
+
+  const handleClearFilters = useCallback(() => {
+    setSelectedMonth(null);
+    setSelectedYear(null);
+  }, []);
+
   return (
     <Container>
-      <ContentHeader title="Outcome" lineColor="#e44c4e">
-        <SelectInput options={monthsOptions} />
-        <SelectInput options={yearsOptions} />
+      <ContentHeader title="Outcome" lineColor="#f7931b">
+        <SelectInput
+          selectName="Months"
+          options={monthsOptions}
+          selectedOption={selectedMonth}
+          onChange={handleSelectMonth}
+        />
+        <SelectInput
+          selectName="Years"
+          options={yearsOptions}
+          selectedOption={selectedYear}
+          onChange={handleSelectYear}
+        />
+        <button
+          type="button"
+          className="clear-filters"
+          onClick={handleClearFilters}
+        >
+          Clear filters
+        </button>
       </ContentHeader>
 
       <Filters>
@@ -27,15 +106,13 @@ const Outcome: React.FC = () => {
       </Filters>
 
       <ContentList>
-        {expenses.map(outcome => (
+        {expensesData.map(expense => (
           <FinanceMovementCard
-            key={`outcome_${expenses.indexOf(outcome)}`}
-            tagColor={
-              outcome.frequency === 'recorrente' ? 'recurrent' : 'eventual'
-            }
-            title={outcome.description}
-            subTitle={format(parseISO(outcome.date), 'dd/MM/yyyy')}
-            amount={outcome.amount}
+            key={expense.identifier}
+            tagClass={expense.frequency}
+            title={expense.description}
+            subTitle={expense.date}
+            amount={expense.amount}
           />
         ))}
       </ContentList>

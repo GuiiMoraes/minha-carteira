@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { parseISO, format } from 'date-fns';
 
 import ContentHeader from 'components/ContentHeader';
@@ -9,12 +9,91 @@ import { gains, monthsOptions, yearsOptions } from 'repositories';
 
 import { Container, Filters, ContentList } from './styles';
 
+interface IGainData {
+  identifier: string;
+  frequency: string;
+  description: string;
+  date: string;
+  amount: string;
+}
+
 const Income: React.FC = () => {
+  const [gainsData, setGainsData] = useState<IGainData[]>([]);
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  const [selectedYear, setSelectedYear] = useState<string | null>(null);
+
+  useEffect(() => {
+    const parsedData = gains.map(gain => ({
+      identifier: `income_${gains.indexOf(gain)}`,
+      frequency: gain.frequency === 'recorrente' ? 'recurrent' : 'eventual',
+      description: gain.description,
+      date: format(parseISO(gain.date), 'dd/MM/yyyy'),
+      amount: gain.amount,
+    }));
+
+    setGainsData(parsedData);
+  }, []);
+
+  useEffect(() => {
+    let filteredDates = gains;
+
+    if (selectedMonth && selectedYear) {
+      filteredDates = gains.filter(gain => {
+        const date = new Date(gain.date);
+
+        const month = String(date.getMonth() + 1);
+        const year = String(date.getFullYear());
+
+        return month === selectedMonth && year === selectedYear;
+      });
+    }
+
+    const parsedData = filteredDates.map(gain => ({
+      identifier: `income_${gains.indexOf(gain)}`,
+      frequency: gain.frequency === 'recorrente' ? 'recurrent' : 'eventual',
+      description: gain.description,
+      date: format(parseISO(gain.date), 'dd/MM/yyyy'),
+      amount: gain.amount,
+    }));
+
+    setGainsData(parsedData);
+  }, [selectedMonth, selectedYear]);
+
+  const handleSelectMonth = useCallback(event => {
+    setSelectedMonth(event.target.value);
+  }, []);
+
+  const handleSelectYear = useCallback(event => {
+    setSelectedYear(event.target.value);
+  }, []);
+
+  const handleClearFilters = useCallback(() => {
+    setSelectedMonth(null);
+    setSelectedYear(null);
+  }, []);
+
   return (
     <Container>
       <ContentHeader title="Income" lineColor="#f7931b">
-        <SelectInput options={monthsOptions} />
-        <SelectInput options={yearsOptions} />
+        <SelectInput
+          selectName="Months"
+          options={monthsOptions}
+          selectedOption={selectedMonth}
+          onChange={handleSelectMonth}
+        />
+        <SelectInput
+          selectName="Years"
+          options={yearsOptions}
+          selectedOption={selectedYear}
+          onChange={handleSelectYear}
+        />
+        <button
+          type="button"
+          className="clear-filters"
+          onClick={handleClearFilters}
+        >
+          Clear filters
+        </button>
       </ContentHeader>
 
       <Filters>
@@ -27,15 +106,13 @@ const Income: React.FC = () => {
       </Filters>
 
       <ContentList>
-        {gains.map(income => (
+        {gainsData.map(gain => (
           <FinanceMovementCard
-            key={`income_${gains.indexOf(income)}`}
-            tagColor={
-              income.frequency === 'recorrente' ? 'recurrent' : 'eventual'
-            }
-            title={income.description}
-            subTitle={format(parseISO(income.date), 'dd/MM/yyyy')}
-            amount={income.amount}
+            key={gain.identifier}
+            tagClass={gain.frequency}
+            title={gain.description}
+            subTitle={gain.date}
+            amount={gain.amount}
           />
         ))}
       </ContentList>

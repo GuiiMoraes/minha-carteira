@@ -1,4 +1,4 @@
 import randomEmoji from './randomEmoji';
-import formatNumber from './formatNumber';
+import formatCurrency from './formatCurrency';
 
-export { randomEmoji, formatNumber };
+export { randomEmoji, formatCurrency };
