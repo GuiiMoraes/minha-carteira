@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-interface IContainerProps {
-  tagColor: string;
-}
-
-export const Container = styled.li<IContainerProps>`
+export const Container = styled.li`
   display: flex;
 
   align-items: center;
@@ -40,7 +36,13 @@ export const Container = styled.li<IContainerProps>`
 
     margin-right: 16px;
 
-    background-color: ${props => props.tagColor};
+    &.recurrent {
+      background-color: ${props => props.theme.colors.warning};
+    }
+
+    &.eventual {
+      background-color: ${props => props.theme.colors.info};
+    }
   }
 
   > div {
