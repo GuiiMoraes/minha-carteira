@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { parseISO, format } from 'date-fns';
 
 import ContentHeader from 'components/ContentHeader';
 import FinanceMovementCard from 'components/FinanceMovementCard';
 import SelectInput from 'components/SelectInput';
 
-import { expenses, monthsOptions, yearsOptions } from 'repositories';
+import { expenses, months } from 'repositories';
 
 import { Container, Filters, ContentList } from './styles';
 
@@ -21,6 +21,31 @@ const Outcome: React.FC = () => {
   const [expensesData, setExpensesData] = useState<IExpenseData[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
+
+  const yearsOptions = useMemo(() => {
+    const uniqueYears: number[] = [];
+
+    expenses.forEach(expense => {
+      const date = new Date(expense.date);
+      const year = date.getFullYear();
+
+      if (!uniqueYears.includes(year)) {
+        uniqueYears.push(year);
+      }
+    });
+
+    return uniqueYears.map(year => ({
+      value: year,
+      label: year,
+    }));
+  }, []);
+
+  const monthsOptions = useMemo(() => {
+    return months.map((month, index) => ({
+      value: index + 1,
+      label: month,
+    }));
+  }, []);
 
   useEffect(() => {
     const parsedData = expenses.map(expense => ({

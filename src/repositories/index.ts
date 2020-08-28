@@ -1,6 +1,5 @@
 import expenses from './expenses';
 import gains from './gains';
-import monthsOptions from './monthsOptions';
-import yearsOptions from './yearsOptions';
+import months from './months';
 
-export { expenses, gains, monthsOptions, yearsOptions };
+export { expenses, gains, months };
