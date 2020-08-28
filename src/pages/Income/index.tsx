@@ -6,7 +6,7 @@ import SelectInput from 'components/SelectInput';
 
 import { monthsOptions, yearsOptions } from 'utils';
 
-import { Container, ContentList } from './styles';
+import { Container, Filters, ContentList } from './styles';
 
 const Income: React.FC = () => {
   return (
@@ -15,6 +15,15 @@ const Income: React.FC = () => {
         <SelectInput options={monthsOptions} />
         <SelectInput options={yearsOptions} />
       </ContentHeader>
+
+      <Filters>
+        <button type="button" className="recurrent">
+          Recorrentes
+        </button>
+        <button type="button" className="eventual">
+          Eventuais
+        </button>
+      </Filters>
 
       <ContentList>
         <FinanceMovementCard
