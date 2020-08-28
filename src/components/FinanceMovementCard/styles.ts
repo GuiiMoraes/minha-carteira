@@ -35,7 +35,7 @@ export const Container = styled.li<IContainerProps>`
 
     display: block;
 
-    width: 20px;
+    width: 12px;
     height: 50px;
 
     margin-right: 16px;

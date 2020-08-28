@@ -9,7 +9,7 @@ import { monthsOptions, yearsOptions } from 'utils';
 
 const Dashboard: React.FC = () => {
   return (
-    <ContentHeader title="Dashboard" lineColor="#f7931b">
+    <ContentHeader title="Dashboard" lineColor="#1a8db9">
       <SelectInput options={monthsOptions} />
       <SelectInput options={yearsOptions} />
     </ContentHeader>
