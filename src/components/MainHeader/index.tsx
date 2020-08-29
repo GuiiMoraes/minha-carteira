@@ -3,17 +3,19 @@ import React, { useCallback } from 'react';
 import { randomEmoji } from 'utils';
 
 import { useAuth } from 'context/auth';
+import { useTheme } from 'context/theme';
 
 import Switcher from 'components/Switcher';
 import { Container, SwitcherWrapper, Profile } from './styles';
 
 const MainHeader: React.FC = () => {
   const { user } = useAuth();
+  const { toggleTheme } = useTheme();
   const emoji = randomEmoji();
 
   const handleToogleTheme = useCallback(() => {
-    console.log('teste');
-  }, []);
+    toggleTheme();
+  }, [toggleTheme]);
 
   return (
     <Container>
