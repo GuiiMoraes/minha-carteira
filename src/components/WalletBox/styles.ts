@@ -7,7 +7,7 @@ interface IContainerProps {
 export const Container = styled.div<IContainerProps>`
   position: relative;
 
-  width: 100%;
+  width: 32%;
   height: 200px;
 
   border-radius: 8px;
