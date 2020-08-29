@@ -34,7 +34,7 @@ export const Container = styled.div<IContainerProps>`
   }
 
   > strong {
-    font-size: 3.5rem;
+    font-size: 2rem;
 
     width: 100%;
 

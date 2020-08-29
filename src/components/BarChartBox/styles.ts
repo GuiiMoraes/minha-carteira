@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: space-between;
 
   width: 49%;
-  height: 250px;
+  height: 350px;
 
   background-color: ${props => props.theme.colors.tertiary};
   color: ${props => props.theme.colors.white};
@@ -24,6 +24,8 @@ export const SideLeft = styled.aside`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  flex: 1;
 
   > strong {
     font-size: 2rem;
@@ -65,8 +67,5 @@ export const Legend = styled.li<ILegendProps>`
 `;
 
 export const SideRight = styled.main`
-  display: flex;
-  justify-content: center;
-
   flex: 1;
 `;

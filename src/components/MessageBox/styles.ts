@@ -18,7 +18,7 @@ export const Container = styled.div`
 
   > header {
     strong {
-      font-size: 3.5rem;
+      font-size: 2rem;
     }
 
     img {

@@ -25,7 +25,7 @@ export const ChartHeader = styled.header`
   > strong {
     display: inline-block;
 
-    font-size: 3.5rem;
+    font-size: 2rem;
 
     margin-bottom: 16px;
   }
