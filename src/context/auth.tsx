@@ -1,26 +1,26 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
 
-interface AuthState {
+interface IAuthState {
   name: string;
 }
 
-interface AuthContextData {
-  user: AuthState;
+interface IAuthContextData {
+  user: IAuthState;
   signIn(): void;
   signOut(): void;
 }
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<AuthState>({} as AuthState);
+  const [data, setData] = useState<IAuthState>({} as IAuthState);
 
   const signIn = useCallback(() => {
     setData({ name: 'Usuário' });
   }, []);
 
   const signOut = useCallback(() => {
-    setData({} as AuthState);
+    setData({} as IAuthState);
   }, []);
 
   return (
@@ -30,7 +30,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-function useAuth(): AuthContextData {
+function useAuth(): IAuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
