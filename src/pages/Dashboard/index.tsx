@@ -5,6 +5,7 @@ import ContentHeader from 'components/ContentHeader';
 import SelectInput from 'components/SelectInput';
 import WalletBox from 'components/WalletBox';
 import MessageBox from 'components/MessageBox';
+import PieChartBox from 'components/PieChartBox';
 
 import happyImg from 'assets/happy.svg';
 import grinningImg from 'assets/grinning.svg';
@@ -100,6 +101,28 @@ const Dashboard: React.FC = () => {
     };
   }, [totalExpenses, totalGains]);
 
+  const relationGainsVersusExpenses = useMemo(() => {
+    const total: number = totalGains.total + totalExpenses.total;
+
+    const gainsPercent = (totalGains.total / total) * 100 || 50;
+    const expensesPercent = (totalExpenses.total / total) * 100 || 50;
+
+    return [
+      {
+        name: 'income',
+        value: totalGains.total,
+        percent: Math.round(gainsPercent),
+        color: '#f7931B',
+      },
+      {
+        name: 'outcome',
+        value: totalExpenses.total,
+        percent: Math.round(expensesPercent),
+        color: '#e44c4e',
+      },
+    ];
+  }, [totalExpenses, totalGains]);
+
   const message = useMemo(() => {
     if (totalBalance.total < 0) {
       return {
@@ -193,6 +216,7 @@ const Dashboard: React.FC = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
+        <PieChartBox data={relationGainsVersusExpenses} />
       </Content>
     </Container>
   );
