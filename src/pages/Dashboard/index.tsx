@@ -6,6 +6,7 @@ import SelectInput from 'components/SelectInput';
 import WalletBox from 'components/WalletBox';
 import MessageBox from 'components/MessageBox';
 import PieChartBox from 'components/PieChartBox';
+import HistoryBox from 'components/HistoryBox';
 
 import happyImg from 'assets/happy.svg';
 import grinningImg from 'assets/grinning.svg';
@@ -123,6 +124,57 @@ const Dashboard: React.FC = () => {
     ];
   }, [totalExpenses, totalGains]);
 
+  const historyData = useMemo(() => {
+    return months
+      .map((_, month) => {
+        let amountEntry = 0;
+        gains.forEach(gain => {
+          const date = new Date(gain.date);
+          const gainMonth = date.getMonth();
+          const gainYear = date.getFullYear();
+
+          if (gainMonth === month && gainYear === Number(selectedYear)) {
+            try {
+              amountEntry += Number(gain.amount);
+            } catch {
+              throw new Error('Invalid amountEntry. It must to be a number');
+            }
+          }
+        });
+
+        let amountOutput = 0;
+        expenses.forEach(expense => {
+          const date = new Date(expense.date);
+          const expenseMonth = date.getMonth();
+          const expenseYear = date.getFullYear();
+
+          if (expenseMonth === month && expenseYear === Number(selectedYear)) {
+            try {
+              amountOutput += Number(expense.amount);
+            } catch {
+              throw new Error('Invalid amountOutput. It must to be a number');
+            }
+          }
+        });
+
+        return {
+          monthNumber: month,
+          month: months[month].substr(0, 3),
+          amountEntry,
+          amountOutput,
+        };
+      })
+      .filter(item => {
+        const currentMonth = new Date().getMonth();
+        const currentYear = String(new Date().getFullYear());
+
+        return (
+          (selectedYear === currentYear && item.monthNumber <= currentMonth) ||
+          selectedYear < currentYear
+        );
+      });
+  }, [selectedYear]);
+
   const message = useMemo(() => {
     if (totalBalance.total < 0) {
       return {
@@ -217,6 +269,11 @@ const Dashboard: React.FC = () => {
           icon={message.icon}
         />
         <PieChartBox data={relationGainsVersusExpenses} />
+        <HistoryBox
+          data={historyData}
+          lineColorAmountEntry="#f7931B"
+          lineColorAmountOutput="#e44c4e"
+        />
       </Content>
     </Container>
   );
