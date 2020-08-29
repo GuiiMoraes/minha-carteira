@@ -5,8 +5,6 @@ import dollarImg from 'assets/dollar.svg';
 import arrowUpImg from 'assets/arrow-up.svg';
 import arrowDownImg from 'assets/arrow-down.svg';
 
-import { formatCurrency } from 'utils';
-
 import { Container } from './styles';
 
 interface IWalletBoxProps {

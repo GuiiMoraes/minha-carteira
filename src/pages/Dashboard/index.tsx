@@ -3,6 +3,10 @@ import React, { useState, useMemo, useCallback } from 'react';
 import ContentHeader from 'components/ContentHeader';
 import SelectInput from 'components/SelectInput';
 import WalletBox from 'components/WalletBox';
+import MessageBox from 'components/MessageBox';
+
+import happyImg from 'assets/happy.svg';
+import sadImg from 'assets/sad.svg';
 
 import { expenses, gains, months } from 'repositories';
 
@@ -95,6 +99,12 @@ const Dashboard: React.FC = () => {
           footerLabel="Atualizado com base nas entradas e saídas"
           icon="arrowDown"
           color="#e44c4e"
+        />
+        <MessageBox
+          title="Very well!"
+          description="Your wallet is health!"
+          footerText="Keep in that way. Consider to invest this money"
+          icon={happyImg}
         />
       </Content>
     </Container>
