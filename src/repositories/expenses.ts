@@ -342,4 +342,11 @@ export default [
     frequency: 'eventual',
     date: '2020-07-19',
   },
+  {
+    description: 'Pizza',
+    amount: '750.01',
+    type: 'saída',
+    frequency: 'eventual',
+    date: '2020-07-19',
+  },
 ];
