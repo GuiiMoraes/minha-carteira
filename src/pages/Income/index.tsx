@@ -19,8 +19,12 @@ interface IGainData {
 
 const Income: React.FC = () => {
   const [gainsData, setGainsData] = useState<IGainData[]>([]);
-  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
-  const [selectedYear, setSelectedYear] = useState<string | null>(null);
+  const [selectedMonth, setSelectedMonth] = useState<string>(() =>
+    String(new Date().getMonth() + 1)
+  );
+  const [selectedYear, setSelectedYear] = useState<string>(() =>
+    String(new Date().getFullYear())
+  );
   const [selectedFrequencies, setSelectedFrequencies] = useState([
     'recurrent',
     'eventual',
@@ -102,8 +106,8 @@ const Income: React.FC = () => {
   }, []);
 
   const handleClearFilters = useCallback(() => {
-    setSelectedMonth(null);
-    setSelectedYear(null);
+    setSelectedMonth(String(new Date().getMonth() + 1));
+    setSelectedYear(String(new Date().getFullYear()));
     setSelectedFrequencies(['recurrent', 'eventual']);
   }, []);
 
