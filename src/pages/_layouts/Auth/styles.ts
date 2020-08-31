@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: auto 250px auto;
-  grid-template-rows: auto 250px auto;
+  grid-template-columns: auto 320px auto;
+  grid-template-rows: auto 350px auto;
 
   grid-template-areas:
     '.. .. ..'
@@ -11,7 +11,7 @@ export const Container = styled.div`
     '.. .. ..';
 
   height: 100vh;
-  background-color: #252a48;
+  background-color: ${props => props.theme.colors.primary};
 `;
 
 export const Content = styled.div`
@@ -19,8 +19,7 @@ export const Content = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
 
-  color: #111;
-  background-color: #fff;
+  height: 100%;
 `;

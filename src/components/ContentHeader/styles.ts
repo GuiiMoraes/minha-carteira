@@ -29,7 +29,6 @@ export const Container = styled.div<IContainerProps>`
 
       border-radius: 2px;
 
-      /* background-color: ${props => props.theme.colors.info}; */
       background-color: ${props => props.lineColor};
 
       transform: translateY(100%);
