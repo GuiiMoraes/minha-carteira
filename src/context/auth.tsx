@@ -1,25 +1,46 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
 
+import { users } from 'repositories';
+
 interface IAuthState {
   name: string;
 }
 
 interface IAuthContextData {
   user: IAuthState;
-  signIn(): void;
+  signIn(email: string, password: string): void;
   signOut(): void;
 }
 
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<IAuthState>({} as IAuthState);
+  const [data, setData] = useState<IAuthState>(() => {
+    const user = localStorage.getItem('@MyWallet:User');
 
-  const signIn = useCallback(() => {
-    setData({ name: 'Usuário' });
+    if (user) return JSON.parse(user);
+
+    return {} as IAuthState;
+  });
+
+  const signIn = useCallback((email, password) => {
+    const userFound = users.find(
+      user => user.email === email && user.password === password
+    );
+
+    if (userFound) {
+      localStorage.setItem(
+        '@MyWallet:User',
+        JSON.stringify({ name: userFound.name })
+      );
+      setData({ name: userFound.name });
+    } else {
+      throw new Error('User / passord invalid');
+    }
   }, []);
 
   const signOut = useCallback(() => {
+    localStorage.removeItem('@MyWallet:User');
     setData({} as IAuthState);
   }, []);
 
