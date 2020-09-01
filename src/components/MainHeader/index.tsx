@@ -10,7 +10,7 @@ import { Container, SwitcherWrapper, Profile } from './styles';
 
 const MainHeader: React.FC = () => {
   const { user } = useAuth();
-  const { toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const emoji = randomEmoji();
 
   const handleToogleTheme = useCallback(() => {
@@ -23,7 +23,10 @@ const MainHeader: React.FC = () => {
         <span role="img" aria-label="moon emoji">
           🌙
         </span>
-        <Switcher onChange={handleToogleTheme} />
+        <Switcher
+          onChange={handleToogleTheme}
+          checked={theme.title === 'light'}
+        />
         <span role="img" aria-label="sun emoji">
           🌞
         </span>

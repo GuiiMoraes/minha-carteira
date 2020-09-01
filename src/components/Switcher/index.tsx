@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 
 import { LabelContainer } from './styles';
 
-interface ISwitch {
+interface ISwitch extends InputHTMLAttributes<HTMLInputElement> {
   onChange(): void;
 }
 
