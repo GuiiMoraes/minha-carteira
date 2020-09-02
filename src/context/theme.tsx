@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useState,
-  useContext,
-  useEffect,
-} from 'react';
+import React, { createContext, useCallback, useState, useContext } from 'react';
 
 import dark from 'styles/themes/dark';
 import light from 'styles/themes/light';
@@ -38,15 +32,14 @@ interface ThemeContextData {
 const ThemeContext = createContext<ThemeContextData>({} as ThemeContextData);
 
 const ThemeProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<IThemeState>(dark);
-
-  useEffect(() => {
+  const [data, setData] = useState<IThemeState>(() => {
     const localStorageTheme = localStorage.getItem('@MyWallet:Theme');
     if (localStorageTheme) {
       const parsedTheme = JSON.parse(localStorageTheme);
-      setData(parsedTheme);
+      return parsedTheme;
     }
-  }, []);
+    return dark;
+  });
 
   const toggleTheme = useCallback(() => {
     if (data.title === 'dark') {

@@ -11,7 +11,7 @@ export const Container = styled.div`
     '.. .. ..';
 
   height: 100vh;
-  background-color: ${props => props.theme.colors.primary};
+  background-color: #1b1f38;
 `;
 
 export const Content = styled.div`

@@ -11,9 +11,9 @@ export const Container = styled.div`
 
   padding: 16px 22px;
 
-  background-color: ${props => props.theme.colors.tertiary};
+  background-color: #313862;
 
-  color: ${props => props.theme.colors.white};
+  color: #fff;
 
   border-radius: 8px;
 
@@ -38,7 +38,7 @@ export const Container = styled.div`
 
       border-radius: 2px;
 
-      background-color: ${props => props.theme.colors.warning};
+      background-color: #e44c4e;
 
       transform: translateY(100%);
     }
@@ -52,7 +52,7 @@ export const LogoContainer = styled.div`
 
   margin-bottom: 16px;
 
-  color: ${props => props.theme.colors.white};
+  color: #fff;
 
   > img {
     width: 50px;
@@ -71,6 +71,10 @@ export const Form = styled.form`
   flex-direction: column;
 
   height: 100%;
+
+  > button {
+    color: #fff;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -78,7 +82,7 @@ export const InputContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
 
-  background-color: ${props => props.theme.colors.white};
+  background-color: #fff;
 
   border-radius: 4px;
 
@@ -93,7 +97,7 @@ export const InputContainer = styled.div`
   svg {
     width: 22px;
     height: 22px;
-    color: ${props => props.theme.colors.primary};
+    color: #222;
   }
 
   > button {

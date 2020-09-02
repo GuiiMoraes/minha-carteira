@@ -1,6 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active  {
+    background-color: none !important;
+    box-shadow: 0 0 0 30px white inset !important;
+  }
+
   * {
     margin: 0;
     padding: 0;
