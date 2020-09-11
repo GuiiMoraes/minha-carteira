@@ -29,6 +29,13 @@ export const ChartHeader = styled.header`
 
     margin-bottom: 16px;
   }
+
+  @media (max-width: 1280px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-bottom: 16px;
+  }
 `;
 
 export const LegendsWrapper = styled.ul`
@@ -62,6 +69,13 @@ export const Legend = styled.li`
 
   > span {
     margin-left: 8px;
+  }
+
+  @media (max-width: 1280px) {
+    > div {
+      width: 30px;
+      height: 30px;
+    }
   }
 `;
 

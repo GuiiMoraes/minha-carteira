@@ -23,11 +23,34 @@ export const Container = styled.div`
 
     img {
       width: 60px;
+      height: 60px;
       margin-left: 16px;
     }
 
     p {
       font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 770px) {
+    width: 100%;
+    margin: 16px 0 0;
+    > header {
+      strong {
+        font-size: 24px;
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+    > footer {
+      font-size: 14px;
     }
   }
 `;

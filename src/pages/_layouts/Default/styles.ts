@@ -10,6 +10,14 @@ export const Container = styled.div`
     'Sidebar Content';
 
   height: 100vh;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 100%;
+
+    grid-template-areas:
+      'MainHeader'
+      'Content';
+  }
 `;
 
 export const Content = styled.div`
