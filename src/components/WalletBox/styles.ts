@@ -35,6 +35,7 @@ export const Container = styled.div<IContainerProps>`
 
   > strong {
     font-size: 2rem;
+    font-weight: 700;
 
     width: 100%;
 
@@ -50,5 +51,34 @@ export const Container = styled.div<IContainerProps>`
     position: absolute;
     bottom: 10px;
     left: 20px;
+  }
+
+  @media (max-width: 770px) and (min-width: 420px) {
+    :not(:first-child) {
+      margin-left: 4px;
+    }
+
+    > span {
+      font-size: 14px;
+    }
+
+    > strong {
+      word-wrap: break-word;
+      font-size: 22px;
+
+      .prefix {
+        display: inline-block;
+        width: 100%;
+        font-size: 14px;
+      }
+    }
+  }
+  @media (max-width: 420px) {
+    width: 100%;
+
+    :not(:first-child) {
+      margin-left: 0px;
+      margin-top: 16px;
+    }
   }
 `;

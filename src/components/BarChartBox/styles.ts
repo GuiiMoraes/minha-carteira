@@ -18,6 +18,13 @@ export const Container = styled.div`
   padding: 32px 22px;
 
   border-radius: 8px;
+
+  @media (max-width: 1280px) {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+  }
 `;
 
 export const SideLeft = styled.aside`
@@ -29,6 +36,11 @@ export const SideLeft = styled.aside`
 
   > strong {
     font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 1280px) {
+    flex: initial;
   }
 `;
 
@@ -38,6 +50,13 @@ export const LegendsWrapper = styled.ul`
   max-height: 140px;
 
   overflow-y: scroll;
+
+  @media (max-width: 1280px) {
+    display: flex;
+
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export const Legend = styled.li<ILegendProps>`
@@ -63,6 +82,13 @@ export const Legend = styled.li<ILegendProps>`
 
   > span {
     margin-left: 8px;
+  }
+
+  @media (max-width: 1280px) {
+    :not(:first-of-type) {
+      margin-bottom: 0;
+      margin-left: 8px;
+    }
   }
 `;
 
