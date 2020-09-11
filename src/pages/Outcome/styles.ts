@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   .clear-filters {
-    padding: 8px 16px;
+    padding: 4px 8px;
 
-    border: none;
     border-radius: 8px;
+    border: none;
 
-    margin-left: 16px;
+    margin-left: 8px;
   }
 `;
 

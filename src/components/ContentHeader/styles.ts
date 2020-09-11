@@ -34,6 +34,23 @@ export const Container = styled.div<IContainerProps>`
       transform: translateY(100%);
     }
   }
+
+  @media (max-width: 770px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    height: auto;
+
+    > h1 {
+      font-size: 22px;
+      margin-bottom: 15px;
+
+      :after {
+        width: 30px;
+        height: 5px;
+      }
+    }
+  }
 `;
 
 export const ContentWrapper = styled.div`

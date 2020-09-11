@@ -9,6 +9,7 @@ export const Container = styled.div`
     'Sidebar MainHeader'
     'Sidebar Content';
 
+  min-width: 315px;
   height: 100vh;
 
   @media (max-width: 700px) {
