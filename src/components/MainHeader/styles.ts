@@ -14,6 +14,10 @@ export const Container = styled.header`
   padding: 0 8px;
 
   border-bottom: 1px solid ${props => props.theme.colors.gray};
+
+  @media (max-width: 600px) {
+    justify-content: flex-end;
+  }
 `;
 
 export const Profile = styled.div`
@@ -27,4 +31,8 @@ export const SwitcherWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
